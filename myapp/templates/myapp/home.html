@@ -1,0 +1,40 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<div class="text-center">
+    <h1>Welcome to My Django Website</h1>
+    <p>Building modern web apps with Django</p>
+</div>
+<a href="{% url 'add_member' %}" class="btn btn-dark mb-3">
+    Add New Member
+</a>
+<div class="members">
+    <h2>Our Members</h2>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.contact }}</td>
+                <td>
+                    <a href="{% url 'delete_member' member.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'update_member' member.id %}" class="btn btn-warning btn-sm">Update</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No members found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
